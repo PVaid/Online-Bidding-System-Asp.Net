@@ -1,0 +1,112 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="afterLogin.master.vb" Inherits="FastBid.afterLogin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Fast Bid</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="css/materialize.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/materialize.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <form runat="server">
+        <nav>
+            <div class="nav-wrapper purple darken-2">
+                <a href="index.aspx" class="brand-logo" style="margin: auto 16px"><span class="material-icons">fast_forward</span> FastBid <span class="material-icons">fast_rewind</span></a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a class="waves-effect waves-light modal-trigger" href="#startbid"><span class="material-icons">pan_tool</span> StartBid!</a>
+                        <a class="waves-effect waves-light modal-trigger" href="bid-history.aspx"><span class="material-icons">history</span>History</a>
+                        <asp:LinkButton ID="logout" CssClass="waves-effect waves-light" runat="server">Log Out</asp:LinkButton>
+
+                    </li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li>
+                        <a class="waves-effect waves-light modal-trigger" href="#startbid">Start Bid !</a>
+                        <asp:LinkButton ID="logoutm" CssClass="waves-effect waves-light" runat="server">Log Out</asp:LinkButton>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="startbid" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Enter Details!</h5>
+                        <div class="input-field col s12">
+                             <i class="material-icons prefix purple-text">mode_edit</i>
+                            <asp:TextBox ID="title" CssClass="validate" runat="server"></asp:TextBox>
+                            <label for="title">Title</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Required" CssClass="red-text" ControlToValidate="title" Display="Dynamic" ValidationGroup="sb_bid" Visible="False"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="input-field col s12">
+                             <i class="material-icons prefix purple-text">message</i>
+                            <asp:TextBox ID="description" TextMode="MultiLine" runat="server" CssClass="validate materialize-textarea"></asp:TextBox>
+                            <label for="description">Description</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Required" CssClass="red-text" ControlToValidate="description" Display="Dynamic" ValidationGroup="sb_bid"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="input-field col s12">
+                             <i class="material-icons prefix purple-text">attach_money</i>
+                            <asp:TextBox ID="base_price" CssClass="validate" runat="server"></asp:TextBox>
+                            <label for="base_price">Base Price</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required" CssClass="red-text" ControlToValidate="base_price" Display="Dynamic" ValidationGroup="sb_bid"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="input-field col s12">
+                             <i class="material-icons prefix purple-text">gps_fixed</i>
+                            <asp:TextBox ID="location" CssClass="validate" runat="server"></asp:TextBox>
+                            <label for="location">Location</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Required" CssClass="red-text" ControlToValidate="location" Display="Dynamic" ValidationGroup="sb_bid"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="input-field col s12">
+                             <i class="material-icons prefix purple-text">date_range</i>
+                            <asp:TextBox ID="run_date" CssClass="datepicker" runat="server"></asp:TextBox>
+                            <label for="run_date">Run Till Date</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Required" CssClass="red-text" ControlToValidate="run_date" Display="Dynamic" ValidationGroup="sb_bid"></asp:RequiredFieldValidator>
+                            <asp:CustomValidator runat="server" id="check_date" controltovalidate="run_date" OnServerValidate="check_date_validate" errormessage="Date must be greater than today's date!" Display="Dynamic" CssClass="red-text" ValidationGroup="sb_bid"></asp:CustomValidator>
+                        </div>
+                        <span>Image:</span>
+                        <div class="input-field col s12">
+                            <asp:FileUpload ID="image_upload"  runat="server" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Required" CssClass="red-text" Display="Dynamic" ControlToValidate="image_upload" ValidationGroup="sb_bid"></asp:RequiredFieldValidator>
+                        </div>
+                    </div>
+                </div>
+                <asp:Label ID="error_msg" runat="server" CssClass="red-text" Text=""></asp:Label>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+                <asp:Button ID="start_bid" CssClass="waves-effect waves-green btn-flat " runat="server" Text="Start Bid!" ValidationGroup="sb_bid" />
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+            $('.modal').modal();
+            $('.datepicker').pickadate({
+                today: 'Today',
+                closeOnSelect: true
+            });
+
+            $('.modal').modal({
+                dismissible: true,
+                opacity: .5,
+                inDuration: 300,
+                outDuration: 200,
+                startingTop: '15%',
+                endingTop: '10%',
+            });
+        })
+    </script>
+</body>
+</html>

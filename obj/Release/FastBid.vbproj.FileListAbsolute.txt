@@ -1,0 +1,8 @@
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\bin\FastBid.dll
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\bin\FastBid.pdb
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\bin\FastBid.xml
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\obj\Release\FastBid.Resources.resources
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\obj\Release\FastBid.vbproj.GenerateResource.Cache
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\obj\Release\FastBid.dll
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\obj\Release\FastBid.xml
+c:\users\sony\documents\visual studio 2012\Projects\FastBid\FastBid\obj\Release\FastBid.pdb
